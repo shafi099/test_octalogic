@@ -7,6 +7,7 @@ import {
   Box,
   Paper,
   Typography,
+  Button,
 } from '@mui/material';
 import UserDetails from './components/UserDetails';
 import WheelTypes from './components/WheelTypes';
@@ -61,6 +62,10 @@ function App() {
     }
   };
 
+  const handleBack = () => {
+    setStep((prevStep) => prevStep - 1);
+  };
+
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 1:
@@ -81,14 +86,19 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box className="h-[100vh] w-full flex justify-center items-center bg-gray-50 sofia-sans">
-        <Paper elevation={3} className="p-12 lg:w-[50vw]">
-          <Stepper activeStep={step - 1} alternativeLabel className="mb-6">
+        <Paper elevation={3} className="lg:p-12 p-6 lg:w-[50vw]">
+          <Stepper activeStep={step - 1} alternativeLabel className="mb-12">
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
+          <Box className="flex justify-between mt-4">
+            {step !== 1 && <Button color="primary" onClick={handleBack} disabled={step === 1} >
+              Back
+            </Button>}
+          </Box>
           {getStepContent(step)}
         </Paper>
       </Box>
