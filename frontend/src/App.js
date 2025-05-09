@@ -16,6 +16,7 @@ import Vehicles from './components/Vehicles';
 import DateRangePicker from './components/DatePicker';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { environment } from './environment';
+import BookingsList from './components/ListBookings';
 
 const theme = createTheme({
   typography: {
@@ -53,6 +54,8 @@ function App() {
         const result = await response.json();
         console.log('Form submitted:', result);
         alert('Booking Successful!');
+        window.location.reload();
+        
       } catch (error) {
         console.error('Error submitting form:', error);
         alert('Submission failed');
@@ -85,8 +88,8 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box className="h-[100vh] w-full flex justify-center items-center bg-gray-50 sofia-sans">
-        <Paper elevation={3} className="lg:p-12 p-6 lg:w-[50vw]">
+      <Box className="h-[100vh] w-full flex flex-row justify-evenly items-center bg-gray-50 sofia-sans">
+        <Paper elevation={3} className="lg:p-12 p-6 lg:w-[48vw]">
           <Stepper activeStep={step - 1} alternativeLabel className="mb-12">
             {steps.map((label) => (
               <Step key={label}>
@@ -100,6 +103,10 @@ function App() {
             </Button>}
           </Box>
           {getStepContent(step)}
+        </Paper>
+
+        <Paper elevation={3} className="lg:w-[48vw]">
+          <BookingsList></BookingsList>
         </Paper>
       </Box>
     </ThemeProvider>

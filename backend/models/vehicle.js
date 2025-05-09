@@ -23,7 +23,9 @@ module.exports = (sequelize, DataTypes) => {
 
   Vehicle.associate = function(models) {
     Vehicle.belongsTo(models.VehicleType, { foreignKey: 'vehicleTypeId' });
+    Vehicle.hasMany(models.Booking, { foreignKey: 'vehicleId' }); // optional if you want reverse relation
   };
+  
   
   return Vehicle;
 };

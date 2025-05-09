@@ -20,5 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'VehicleType',
   });
+
+  VehicleType.associate = function(models) {
+    VehicleType.hasMany(models.Vehicle, { foreignKey: 'vehicleTypeId' });
+  };
+  
   return VehicleType;
 };

@@ -1,36 +1,37 @@
 const express = require('express');
 const router = express.Router();
-const { Booking } = require('../models');
-const { Op } = require('sequelize');
+const { Booking, Vehicle, VehicleType } = require('../models');
 
-router.post('/', async (req, res) => {
-  const { user, vehicleId, startTime, endTime } = req.body;
-
+router.get('/', async (req, res) => {
   try {
-    const overlapping = await Booking.findOne({
-      where: {
-        vehicleId,
-        [Op.or]: [
-          {
-            startTime: { [Op.lt]: new Date(endTime) },
-            endTime: { [Op.gt]: new Date(startTime) }
-          }
-        ]
+    const bookings = await Booking.findAll({
+      include: {
+        model: Vehicle,
+        include: {
+          model: VehicleType
+        }
       }
     });
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch bookings', details: err.message });
+  }
+});
 
-    if (overlapping) {
-      return res.status(400).json({ message: 'Booking conflict detected!' });
-    }
+
+router.post('/', async (req, res) => {
+  try {
+    const { firstName, lastName, vehicleId, startTime, endTime } = req.body;
 
     const booking = await Booking.create({
-      user,
+      firstName,
+      lastName,
       vehicleId,
       startTime,
       endTime
     });
 
-    res.status(201).json({ message: 'Booking successful', booking });
+    res.status(201).json({ message: 'Booking successful', bookings: booking });
   } catch (err) {
     res.status(500).json({ error: 'Booking failed', details: err.message });
   }

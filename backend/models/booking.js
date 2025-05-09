@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Booking.init({
-    user: DataTypes.STRING,
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
     startTime: DataTypes.DATE,
     endTime: DataTypes.DATE,
     vehicleId: DataTypes.INTEGER
@@ -22,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Booking',
   });
-
+  
   Booking.associate = function(models) {
     Booking.belongsTo(models.Vehicle, { foreignKey: 'vehicleId' });
   };
