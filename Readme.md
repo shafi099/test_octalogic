@@ -12,12 +12,17 @@
 
 ---
 
+```bash
+
+git clone https://github.com/shafi099/test_octalogic.git
+
+```
+
 ## 🖥️ Frontend Setup
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/vehicle-booking-app.git
-cd vehicle-booking-app/frontend
+cd frontend
 
 # Install dependencies
 npm install
@@ -25,14 +30,11 @@ npm install
 # Start the app
 npm start
 
+```
 
+## 🖥️  Backend Setup
 
-
-
-
-## 🖥️ Frontend Setup
-
-
+```bash
 
 # Move to backend directory
 cd backend
@@ -47,3 +49,5 @@ npx sequelize-cli db:migrate
 
 # Start the server
 node server.js
+
+```
